@@ -11,11 +11,15 @@ library(readr)
 library(ggmap)
 
 # Set Google API key
-register_google(key = "AIzaSyDHzM6rHu3sTxW-XO3XwOtu8jjnhbMMeqc")
+register_google(key = "xxx")
 
 # Function to read CSV and create 'address' column
 # When exporting from Airtable, name the file 'uncoded_STATE.csv'
-df <- read.csv("uncoded_wa.csv", stringsAsFactors = FALSE)
+df <- read.csv("uncoded_pa.csv", stringsAsFactors = FALSE)
+
+# All leading "0" to zip code if necessary
+
+#df$Zip.Code <- paste0("0", df$Zip.Code)
   
 # Combine the address components into a single 'address' column
 df <- df %>%
@@ -54,7 +58,7 @@ print(geocoded_results)
 
 # Save the results to a CSV file
 # Name the file 'geocoded_STATE_results.csv"
-write.csv(geocoded_results, file = "geocoded_wa_results.csv", row.names = FALSE)
+write.csv(geocoded_results, file = "geocoded_pa_results.csv", row.names = FALSE)
 
 
 
