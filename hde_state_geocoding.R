@@ -1,5 +1,6 @@
-# Bridge Alliance API - $200 limit
-# Loading the tagged Texas data
+# Geocoding the state data
+# Bridge Alliance API used first - $200 limit. 
+# Need to get National Civic League Google Maps API
 
 # Load necessary libraries
 library(ggmap)
@@ -10,14 +11,15 @@ library(readr)
 library(ggmap)
 
 # Set Google API key
-register_google(key = "xxx")
+register_google(key = "AIzaSyDHzM6rHu3sTxW-XO3XwOtu8jjnhbMMeqc")
 
 # Function to read CSV and create 'address' column
-df <- read.csv("Master List-Texas Groups.csv", stringsAsFactors = FALSE)
+# When exporting from Airtable, name the file 'uncoded_STATE.csv'
+df <- read.csv("uncoded_wa.csv", stringsAsFactors = FALSE)
   
 # Combine the address components into a single 'address' column
 df <- df %>%
-    mutate(address = paste(Street, City, State, Zip, sep = ", "))
+    mutate(address = paste(Street.Address, City, State, Zip.Code, sep = ", "))
   
 # Function to geocode a single address
 geocode_address <- function(address) {
@@ -28,6 +30,7 @@ geocode_address <- function(address) {
 
 # Function to handle multiple addresses from a data frame
 geocode_dataframe <- function(df) {
+
   # Create empty columns for latitude and longitude
   df$latitude <- NA
   df$longitude <- NA
@@ -49,8 +52,9 @@ geocoded_results <- geocode_dataframe(df)
 # Display the resulting data frame
 print(geocoded_results)
 
-# Optionally save the results to a CSV file
-write.csv(geocoded_results, file = "geocoded_results.csv", row.names = FALSE)
+# Save the results to a CSV file
+# Name the file 'geocoded_STATE_results.csv"
+write.csv(geocoded_results, file = "geocoded_wa_results.csv", row.names = FALSE)
 
 
 
